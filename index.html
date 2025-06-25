@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Musiflow</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #1e1c2a, #3a3655);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .logo-center {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+    .search-bar {
+      position: relative;
+    }
+    .search-bar input {
+      padding-left: 2.5rem;
+      background-color: #2c2a3e;
+      border: 1px solid #444;
+      color: white;
+      transition: box-shadow 0.3s;
+    }
+    .search-bar input:focus, .search-bar input:hover {
+      box-shadow: 0 0 10px #6f42c1;
+      outline: none;
+    }
+    .search-bar .bi-search {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+    .table img {
+      width: 60px;
+      border-radius: 10px;
+    }
+    tr:hover {
+      background-color: #3e3a5a;
+    }
+    .btn-icon {
+      color: white;
+      text-decoration: none;
+      margin-left: 10px;
+      font-size: 1.3rem;
+    }
+    .btn-icon:hover {
+      color: #0dcaf0;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-center">
+    <img src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-3918-61fd-98e2-03092ea777c2/raw?se=2025-06-25T17%3A26%3A58Z&sp=r&sv=2024-08-04&sr=b&scid=db88bf10-763b-58a0-8bda-cefba9e72851&skoid=b0fd38cc-3d33-418f-920e-4798de4acdd1&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-25T15%3A38%3A05Z&ske=2025-06-26T15%3A38%3A05Z&sks=b&skv=2024-08-04&sig=BKUX9Qm%2BV5RYGv0DZQnf3dNPGhNB4iyfUbAjgbq9iLY%3D" alt="Musiflow Logo" width="120">
+  </div>
+
+  <div class="container">
+    <div class="search-bar mb-4">
+      <i class="bi bi-search"></i>
+      <input type="text" id="search" class="form-control" placeholder="Search for a song...">
+    </div>
+    <div class="table-responsive">
+      <table class="table table-dark table-hover text-white align-middle">
+        <thead>
+          <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Song</th>
+            <th scope="col">Language</th>
+            <th scope="col" class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="musicTable">
+          <!-- Songs will be dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const hindiSongs = [
+      { name: "Pushpa Theme", thumb: "https://i.ytimg.com/vi/EcWka4K0WRE/mqdefault.jpg" },
+      { name: "Srivalli", thumb: "https://i.ytimg.com/vi/3LGeT4-ycP4/mqdefault.jpg" },
+      { name: "Oo Antava", thumb: "https://i.ytimg.com/vi/jfKfPfyJRdk/mqdefault.jpg" },
+      { name: "Jai Jai Shivshankar", thumb: "https://i.ytimg.com/vi/qYx7YG0RsFY/mqdefault.jpg" },
+      { name: "Kesariya", thumb: "https://i.ytimg.com/vi/BddP6PYo2gs/mqdefault.jpg" },
+      { name: "Apna Bana Le", thumb: "https://i.ytimg.com/vi/SN6DcAXytnI/mqdefault.jpg" },
+      { name: "Raatan Lambiyan", thumb: "https://i.ytimg.com/vi/gvyUuxdRdR4/mqdefault.jpg" },
+      { name: "Tum Hi Ho", thumb: "https://i.ytimg.com/vi/Umqb9KENgmk/mqdefault.jpg" },
+      { name: "Bekhayali", thumb: "https://i.ytimg.com/vi/Vd9E9B_9HBA/mqdefault.jpg" },
+      { name: "Teri Mitti", thumb: "https://i.ytimg.com/vi/Bv7w3AjEQrg/mqdefault.jpg" }
+    ];
+
+    const musicData = Array.from({ length: 40 }, (_, i) => {
+      const { name, thumb } = hindiSongs[i % hindiSongs.length];
+      return {
+        name,
+        url: `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${(i % 16) + 1}.mp3`,
+        thumb,
+        language: 'Hindi'
+      };
+    });
+
+    const tableBody = document.getElementById("musicTable");
+    const searchInput = document.getElementById("search");
+
+    function renderSongs(songs) {
+      tableBody.innerHTML = '';
+      songs.forEach(song => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><img src="${song.thumb}" alt="thumb"></td>
+          <td>${song.name}</td>
+          <td>${song.language}</td>
+          <td class="text-end">
+            <a href="play.html?name=${encodeURIComponent(song.name)}&url=${encodeURIComponent(song.url)}&thumb=${encodeURIComponent(song.thumb)}" class="btn-icon" title="Play"><i class="bi bi-play-circle-fill"></i></a>
+            <a href="${song.url}" download class="btn-icon" title="Download"><i class="bi bi-download"></i></a>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    searchInput?.addEventListener("input", () => {
+      const val = searchInput.value.toLowerCase();
+      const filtered = musicData.filter(song => song.name.toLowerCase().includes(val));
+      renderSongs(filtered);
+    });
+
+    if (tableBody) renderSongs(musicData);
+  </script>
+</body>
+</html>
