@@ -1,2 +1,1 @@
-    <img src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-3918-61fd-98e2-03092ea777c2/raw?se=2025-06-25T17%3A26%3A58Z&sp=r&sv=2024-08-04&sr=b&scid=db88bf10-763b-58a0-8bda-cefba9e72851&skoid=b0fd38cc-3d33-418f-920e-4798de4acdd1&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-25T15%3A38%3A05Z&ske=2025-06-26T15%3A38%3A05Z&sks=b&skv=2024-08-04&sig=BKUX9Qm%2BV5RYGv0DZQnf3dNPGhNB4iyfUbAjgbq9iLY%3D" alt="Musiflow Logo" width="120">
 <h1>Musiflow</h1>
